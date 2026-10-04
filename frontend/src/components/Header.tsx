@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, ShieldAlert, Cpu, Activity, RefreshCw } from 'lucide-react';
+import { Shield, Cpu, RefreshCw } from 'lucide-react';
 import { api } from '../services/api';
 
 interface HeaderProps {
@@ -47,14 +47,10 @@ export const Header: React.FC<HeaderProps> = ({ onReset }) => {
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-extrabold text-lg tracking-wider text-white">FLOWGUARD</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono font-medium">
-                ZERO-TRUST
-              </span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono">
-                Neura Shield
-              </span>
             </div>
-            <p className="text-xs text-slate-400">Zero-Trust Runtime Security for AI Agents &bull; AURA-7.2</p>
+            <p className="text-[11px] text-slate-400 font-mono tracking-wide uppercase">
+              ZERO-TRUST RUNTIME SECURITY FOR AI AGENTS
+            </p>
           </div>
         </div>
       </div>

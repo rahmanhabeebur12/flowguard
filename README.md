@@ -1,7 +1,5 @@
 # FLOWGUARD
 ### Zero-Trust Runtime Security for AI Agents
-**Team:** Neura Shield  
-**Problem Statement:** AURA-7.2 — Securing AI Chatbots from Prompt Injection
 
 ---
 
@@ -299,4 +297,5 @@ All 15 security invariant and pipeline tests will execute.
 
 ---
 
-**Neura Shield Labs** &bull; Project AURA-7.2 &bull; 2026
+**FLOWGUARD** &bull; Zero-Trust Runtime Security for AI Agents
+

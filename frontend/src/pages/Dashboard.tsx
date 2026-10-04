@@ -72,7 +72,7 @@ export const Dashboard: React.FC = () => {
               RUNTIME REFERENCE MONITOR
             </span>
             <span className="text-slate-500 text-xs font-mono">&bull;</span>
-            <span className="text-slate-400 text-xs font-mono">NEURA SHIELD LABS</span>
+            <span className="text-slate-400 text-xs font-mono">ZERO-TRUST SECURITY</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
             Autonomous Agent Security Center
@@ -102,11 +102,11 @@ export const Dashboard: React.FC = () => {
           </button>
 
           <button
-            onClick={() => navigate('/judge')}
-            className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono text-xs font-bold shadow-glow-amber transition-all"
+            onClick={() => navigate('/attacks')}
+            className="flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 font-mono text-xs font-bold transition-all"
           >
-            <Zap className="w-4 h-4 text-amber-400" />
-            <span>Judge Mode (60s)</span>
+            <Zap className="w-4 h-4 text-purple-400" />
+            <span>Attack Simulator</span>
           </button>
         </div>
       </div>

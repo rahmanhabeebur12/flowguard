@@ -398,7 +398,7 @@ export const LiveDemo: React.FC = () => {
               {scenarioType === 'legitimate' && (
                 <>
                   <p className="text-slate-300">QUARTERLY RESEARCH REPORT (CONFIDENTIAL)</p>
-                  <p className="text-slate-400">Author: Neura Shield Labs &bull; Q3 2026</p>
+                  <p className="text-slate-400">Author: Security Research Team &bull; Q3 2026</p>
                   <p className="text-emerald-400">Clean Document: No malicious prompt injection detected.</p>
                 </>
               )}

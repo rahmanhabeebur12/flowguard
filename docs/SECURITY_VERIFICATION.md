@@ -1,6 +1,5 @@
 # FLOWGUARD — SECURITY VERIFICATION & HARDENING REPORT
-**Team:** Neura Shield  
-**Problem Statement:** AURA-7.2 — Securing AI Chatbots from Prompt Injection  
+**Product:** FlowGuard — Zero-Trust Runtime Security for AI Agents  
 **Date:** October 2026  
 **Artifact Version:** 1.0-Hardened  
 

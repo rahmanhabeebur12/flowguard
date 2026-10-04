@@ -7,8 +7,8 @@ class CalendarTool(BaseTool):
     is_sensitive = True
 
     _events: List[Dict[str, Any]] = [
-        {"id": "ev_01", "title": "Quarterly Research Sync", "attendees": ["professor@college.edu", "lead@aurashield.org"], "time": "2026-10-05T14:00:00Z"},
-        {"id": "ev_02", "title": "SOC Threat Briefing", "attendees": ["team@aurashield.org"], "time": "2026-10-06T10:00:00Z"},
+        {"id": "ev_01", "title": "Quarterly Research Sync", "attendees": ["professor@college.edu", "lead@flowguard.internal"], "time": "2026-10-05T14:00:00Z"},
+        {"id": "ev_02", "title": "SOC Threat Briefing", "attendees": ["team@flowguard.internal"], "time": "2026-10-06T10:00:00Z"},
     ]
 
     def _execute(self, arguments: Dict[str, Any]) -> Dict[str, Any]:

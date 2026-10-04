@@ -3,46 +3,38 @@ import { NavLink } from 'react-router-dom';
 import {
   LayoutDashboard,
   PlayCircle,
-  Award,
   Zap,
-  GitFork,
   FileCheck,
+  GitFork,
   ScrollText,
   Wrench,
-  Layers,
-  Scale,
-  FlaskConical,
-  Settings,
+  Settings as SettingsIcon,
   Lock,
 } from 'lucide-react';
 
 export const Sidebar: React.FC = () => {
   const navSections = [
     {
-      title: 'RUNTIME SECURITY',
+      title: 'RUNTIME',
       items: [
         { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { to: '/demo', label: 'Live Demo', icon: PlayCircle },
-        { to: '/judge', label: 'Judge Mode', icon: Award, highlight: true },
+        { to: '/demo', label: 'Live Runtime', icon: PlayCircle },
         { to: '/attacks', label: 'Attack Simulator', icon: Zap },
       ],
     },
     {
       title: 'ZERO-TRUST CORE',
       items: [
-        { to: '/provenance', label: 'Provenance DAG', icon: GitFork },
-        { to: '/capabilities', label: 'Capability Manifests', icon: FileCheck },
+        { to: '/capabilities', label: 'Policy / Capabilities', icon: FileCheck },
+        { to: '/provenance', label: 'Provenance', icon: GitFork },
         { to: '/audit', label: 'Audit Log', icon: ScrollText },
         { to: '/tools', label: 'Tool Sandbox', icon: Wrench },
       ],
     },
     {
-      title: 'ARCHITECTURE & INTEL',
+      title: 'SETTINGS',
       items: [
-        { to: '/architecture', label: 'Security Architecture', icon: Layers },
-        { to: '/comparison', label: 'Why FlowGuard?', icon: Scale },
-        { to: '/evaluation', label: 'Evaluation (MVP)', icon: FlaskConical },
-        { to: '/settings', label: 'Settings & Config', icon: Settings },
+        { to: '/settings', label: 'Settings', icon: SettingsIcon },
       ],
     },
   ];
@@ -67,16 +59,11 @@ export const Sidebar: React.FC = () => {
                         isActive
                           ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 shadow-glow-cyan'
                           : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent'
-                      } ${item.highlight ? 'relative' : ''}`
+                      }`
                     }
                   >
                     <Icon className="w-4 h-4 shrink-0" />
                     <span>{item.label}</span>
-                    {item.highlight && (
-                      <span className="ml-auto text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-mono font-bold">
-                        60s
-                      </span>
-                    )}
                   </NavLink>
                 );
               })}
@@ -100,3 +87,4 @@ export const Sidebar: React.FC = () => {
     </aside>
   );
 };
+

@@ -16,7 +16,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="FlowGuard Zero-Trust Runtime Security",
-    description="Runtime authorization and information-flow security layer for tool-connected AI agents (AURA-7.2 / Neura Shield)",
+    description="Runtime authorization and information-flow security layer for tool-connected AI agents",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -36,7 +36,8 @@ def root():
     return {
         "product": "FLOWGUARD",
         "tagline": "Zero-Trust Runtime Security for AI Agents",
-        "team": "Neura Shield",
         "status": "PROTECTION_ACTIVE",
+        "tcb": "REFERENCE_MONITOR_ISOLATED",
         "docs_url": "/docs",
     }
+
