@@ -236,13 +236,13 @@ export const JudgeMode: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-amber-500/20 text-amber-400">
+            <span className="p-1.5 rounded-lg bg-amber-500/20 text-amber-400 shrink-0">
               <Award className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Judge Mode &bull; 60-Second Guided Tour
             </h1>
           </div>
@@ -252,16 +252,16 @@ export const JudgeMode: React.FC = () => {
         </div>
 
         {/* Playback Controls */}
-        <div className="flex items-center space-x-3 mt-4 md:mt-0">
+        <div className="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
           <button
             onClick={() => {
               setIsPlaying(!isPlaying);
               setStepTimer(7);
             }}
-            className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs shadow-glow-amber transition-all"
+            className="flex-1 sm:flex-none justify-center flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs shadow-glow-amber transition-all"
           >
-            <Play className="w-4 h-4 fill-slate-950" />
-            <span>{isPlaying ? `PAUSE (${stepTimer}s)` : 'AUTO-PLAY 60s'}</span>
+            <Play className="w-4 h-4 fill-slate-950 shrink-0" />
+            <span className="truncate">{isPlaying ? `PAUSE (${stepTimer}s)` : 'AUTO-PLAY 60s'}</span>
           </button>
 
           <button
@@ -270,7 +270,7 @@ export const JudgeMode: React.FC = () => {
               setCurrentStepIndex(0);
               setStepTimer(7);
             }}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400"
+            className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 shrink-0"
             title="Restart"
           >
             <RotateCcw className="w-4 h-4" />
@@ -279,7 +279,7 @@ export const JudgeMode: React.FC = () => {
       </div>
 
       {/* Step Indicators Bar */}
-      <div className="grid grid-cols-10 gap-1.5 p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+      <div className="grid grid-cols-5 sm:grid-cols-10 gap-1 sm:gap-1.5 p-1.5 sm:p-2 rounded-xl bg-slate-950/70 border border-slate-800">
         {steps.map((s, idx) => {
           const isCurrent = idx === currentStepIndex;
           const isDone = idx < currentStepIndex;
@@ -290,7 +290,7 @@ export const JudgeMode: React.FC = () => {
                 setCurrentStepIndex(idx);
                 setIsPlaying(false);
               }}
-              className={`py-2 rounded-lg text-center font-mono text-[10px] font-bold transition-all ${
+              className={`py-1.5 sm:py-2 rounded-lg text-center font-mono text-[10px] font-bold transition-all ${
                 isCurrent
                   ? 'bg-amber-500 text-slate-950 shadow-glow-amber scale-105'
                   : isDone
@@ -305,8 +305,8 @@ export const JudgeMode: React.FC = () => {
       </div>
 
       {/* Main Interactive Stage Display */}
-      <div className="p-6 md:p-8 rounded-2xl border border-amber-500/30 bg-[#0E1526]/90 backdrop-blur-xl shadow-2xl space-y-6">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div className="p-3.5 sm:p-6 md:p-8 rounded-2xl border border-amber-500/30 bg-[#0E1526]/90 backdrop-blur-xl shadow-2xl space-y-5 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 sm:pb-4 border-b border-slate-800 gap-2">
           <div className="flex items-center space-x-3">
             <span className={`text-xs font-mono font-bold px-3 py-1 rounded-full border ${curr.badgeColor}`}>
               {curr.badge}
@@ -321,32 +321,32 @@ export const JudgeMode: React.FC = () => {
         </div>
 
         {/* Big Narration Title */}
-        <h2 className="text-xl md:text-2xl font-bold text-white tracking-wide">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-wide">
           {curr.title}
         </h2>
 
         {/* Explainable Narration Block */}
-        <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-sm md:text-base text-slate-200 leading-relaxed font-sans">
+        <div className="p-3.5 sm:p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-xs sm:text-sm md:text-base text-slate-200 leading-relaxed font-sans">
           {curr.narration}
         </div>
 
         {/* Live Backend State Inspection Box */}
-        <div className="p-4 rounded-xl bg-slate-950 border border-slate-850 font-mono text-xs space-y-2">
-          <div className="flex justify-between items-center text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-2">
+        <div className="p-3 sm:p-4 rounded-xl bg-slate-950 border border-slate-850 font-mono text-xs space-y-2">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-2 gap-1">
             <span>Live Runtime State Inspection (FastAPI Backend):</span>
             <span className="text-emerald-400">● Real Backend Data</span>
           </div>
-          <pre className="text-cyan-300 overflow-x-auto leading-relaxed max-h-64">
+          <pre className="text-cyan-300 overflow-x-auto leading-relaxed max-h-64 whitespace-pre-wrap break-all text-[11px]">
             {JSON.stringify(curr.detailPayload, null, 2)}
           </pre>
         </div>
 
         {/* Navigation Step Buttons */}
-        <div className="flex items-center justify-between pt-4 border-t border-slate-800">
+        <div className="flex items-center justify-between pt-4 border-t border-slate-800 gap-2">
           <button
             onClick={() => setCurrentStepIndex((c) => Math.max(c - 1, 0))}
             disabled={currentStepIndex === 0}
-            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 disabled:opacity-40"
+            className="px-3.5 sm:px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 disabled:opacity-40"
           >
             &larr; Previous Step
           </button>
@@ -354,7 +354,7 @@ export const JudgeMode: React.FC = () => {
           {currentStepIndex < steps.length - 1 ? (
             <button
               onClick={() => setCurrentStepIndex((c) => Math.min(c + 1, steps.length - 1))}
-              className="flex items-center space-x-2 px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-mono font-bold shadow-glow-amber"
+              className="flex items-center space-x-2 px-4 sm:px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-mono font-bold shadow-glow-amber"
             >
               <span>Next Step</span>
               <ArrowRight className="w-4 h-4" />
@@ -362,7 +362,7 @@ export const JudgeMode: React.FC = () => {
           ) : (
             <button
               onClick={() => setCurrentStepIndex(0)}
-              className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-mono font-bold shadow-glow-green"
+              className="px-4 sm:px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-mono font-bold shadow-glow-green"
             >
               Restart Tour
             </button>

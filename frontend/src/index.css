@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  html, body, #root {
     @apply bg-[#0B0F17] text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200;
   }
 }

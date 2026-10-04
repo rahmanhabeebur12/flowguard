@@ -156,10 +156,10 @@ export const CapabilityManifests: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <FileCheck className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Capability Manifest &amp; Authority Policy Editor
             </h1>
           </div>
@@ -169,22 +169,22 @@ export const CapabilityManifests: React.FC = () => {
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center space-x-2.5">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={handleResetPolicy}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-xs transition-colors"
+            className="flex-1 sm:flex-none justify-center flex items-center space-x-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-xs transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span>RESET POLICY</span>
+            <span>RESET</span>
           </button>
 
           <button
             onClick={handleSavePolicy}
             disabled={isSaving}
-            className="flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs shadow-glow-cyan transition-all disabled:opacity-50"
+            className="flex-1 sm:flex-none justify-center flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs shadow-glow-cyan transition-all disabled:opacity-50"
           >
             <Save className={`w-3.5 h-3.5 ${isSaving ? 'animate-spin' : ''}`} />
-            <span>{isSaving ? 'SAVING & SIGNING...' : 'SAVE POLICY'}</span>
+            <span className="truncate">{isSaving ? 'SAVING...' : 'SAVE POLICY'}</span>
           </button>
         </div>
       </div>
@@ -200,7 +200,7 @@ export const CapabilityManifests: React.FC = () => {
       {/* Main Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Form Editor */}
-        <div className="lg:col-span-2 p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/85 backdrop-blur-md space-y-5">
+        <div className="lg:col-span-2 p-3.5 sm:p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/85 backdrop-blur-md space-y-5">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <span className="text-xs font-mono font-bold uppercase text-white tracking-wider">
               1. Policy Parameters &amp; Ceilings
@@ -314,7 +314,7 @@ export const CapabilityManifests: React.FC = () => {
         {/* Right 1 Col: Active Policy Status + Phase 12 Policy Impact Preview */}
         <div className="space-y-6">
           {/* Active Policy Status Card */}
-          <div className="p-5 rounded-2xl border border-cyan-500/30 bg-[#0E1524]/85 backdrop-blur-md space-y-4">
+          <div className="p-3.5 sm:p-5 rounded-2xl border border-cyan-500/30 bg-[#0E1524]/85 backdrop-blur-md space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <span className="text-xs font-mono font-bold uppercase text-white tracking-wider">
                 Active Policy Status
@@ -329,7 +329,7 @@ export const CapabilityManifests: React.FC = () => {
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between">
                   <span className="text-slate-500">Destination:</span>
-                  <span className="text-emerald-400 font-bold truncate max-w-[150px]">
+                  <span className="text-emerald-400 font-bold truncate max-w-[140px] sm:max-w-[180px] text-right">
                     {manifest.allowed_destinations?.join(', ') || 'None'}
                   </span>
                 </div>
@@ -351,10 +351,10 @@ export const CapabilityManifests: React.FC = () => {
                     SHA-256 Authority Signature:
                   </span>
                   <div className="p-2 rounded bg-slate-950 border border-slate-800 text-[10px] text-cyan-400 break-all font-mono flex items-center justify-between">
-                    <span>{manifest.signature.slice(0, 24)}...</span>
+                    <span className="truncate">{manifest.signature.slice(0, 24)}...</span>
                     <button
                       onClick={handleCopySignature}
-                      className="text-slate-400 hover:text-white ml-1"
+                      className="text-slate-400 hover:text-white ml-1 shrink-0"
                       title="Copy full hash"
                     >
                       <Copy className="w-3.5 h-3.5" />
@@ -369,9 +369,9 @@ export const CapabilityManifests: React.FC = () => {
           </div>
 
           {/* Phase 12: POLICY IMPACT PREVIEW */}
-          <div className="p-5 rounded-2xl border border-amber-500/30 bg-amber-950/10 backdrop-blur-md space-y-3">
+          <div className="p-3.5 sm:p-5 rounded-2xl border border-amber-500/30 bg-amber-950/10 backdrop-blur-md space-y-3">
             <div className="flex items-center space-x-2 pb-2 border-b border-amber-500/20">
-              <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
               <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
                 Policy Impact Preview
               </h2>
@@ -380,13 +380,13 @@ export const CapabilityManifests: React.FC = () => {
             <div className="space-y-2 text-xs font-mono">
               <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
                 <div className="text-[10px] text-slate-500">DESTINATION COMPARISON:</div>
-                <div className="flex justify-between text-[11px]">
+                <div className="flex flex-col sm:flex-row sm:justify-between text-[11px] gap-0.5">
                   <span className="text-slate-400">CURRENT:</span>
-                  <span className="text-slate-200 font-bold">{currentDest}</span>
+                  <span className="text-slate-200 font-bold break-all">{currentDest}</span>
                 </div>
-                <div className="flex justify-between text-[11px]">
+                <div className="flex flex-col sm:flex-row sm:justify-between text-[11px] gap-0.5">
                   <span className="text-amber-400">PROPOSED:</span>
-                  <span className="text-cyan-300 font-bold">{proposedDest || '(None)'}</span>
+                  <span className="text-cyan-300 font-bold break-all">{proposedDest || '(None)'}</span>
                 </div>
               </div>
 

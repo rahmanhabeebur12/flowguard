@@ -60,25 +60,29 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 
   return (
     <div
-      className={`p-4 rounded-xl border ${style.border} ${style.bg} backdrop-blur-sm transition-all duration-300 ${style.shadow}`}
+      className={`p-3 sm:p-4 rounded-xl border ${style.border} ${style.bg} backdrop-blur-sm transition-all duration-300 ${style.shadow} min-w-0 flex flex-col justify-between`}
     >
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-mono font-medium tracking-wider text-slate-400 uppercase">
+      <div className="flex items-center justify-between gap-1 mb-2 sm:mb-3">
+        <span className="text-[10px] sm:text-xs font-mono font-medium tracking-wider text-slate-400 uppercase truncate" title={title}>
           {title}
         </span>
-        <div className={`p-2 rounded-lg ${style.iconBg}`}>
-          <Icon className="w-4 h-4" />
+        <div className={`p-1.5 sm:p-2 rounded-lg ${style.iconBg} shrink-0`}>
+          <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </div>
       </div>
-      <div className="flex items-baseline space-x-2">
-        <span className={`text-3xl font-extrabold font-mono ${style.text}`}>{value}</span>
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+        <span className={`text-xl sm:text-2xl lg:text-3xl font-extrabold font-mono ${style.text}`}>
+          {value}
+        </span>
         {trend && (
-          <span className="text-[11px] font-mono text-slate-400">
+          <span className="text-[9px] sm:text-[10px] font-mono text-slate-400 truncate max-w-full" title={trend}>
             {trend}
           </span>
         )}
       </div>
-      <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
+      <span className="text-[9px] sm:text-[10px] font-mono text-slate-500 mt-1 truncate block" title={subtitle}>
+        {subtitle}
+      </span>
     </div>
   );
 };

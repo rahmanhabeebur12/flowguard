@@ -37,13 +37,13 @@ export const Evaluation: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <FlaskConical className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Evaluation &bull; Empirical Prototype Measurements
             </h1>
           </div>
@@ -56,28 +56,28 @@ export const Evaluation: React.FC = () => {
         <button
           onClick={runLiveTestSuite}
           disabled={isRunning}
-          className="mt-3 md:mt-0 flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs shadow-glow-cyan transition-all disabled:opacity-50"
+          className="flex items-center justify-center space-x-2 px-4 sm:px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs shadow-glow-cyan transition-all disabled:opacity-50 w-full sm:w-auto"
         >
           <Play className={`w-4 h-4 fill-slate-950 ${isRunning ? 'animate-spin' : ''}`} />
-          <span>{isRunning ? 'EXECUTING CORPUS & TESTS...' : 'RUN LIVE TEST SUITE'}</span>
+          <span className="truncate">{isRunning ? 'EXECUTING CORPUS...' : 'RUN LIVE TEST SUITE'}</span>
         </button>
       </div>
 
       {/* Prominent Label: Measured locally from current test corpus */}
-      <div className="p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="p-3 sm:p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="flex items-center space-x-2">
           <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
           <span className="font-bold">
             {evalData?.label || 'Measured locally from current test corpus.'}
           </span>
         </div>
-        <span className="text-[11px] text-slate-400">
+        <span className="text-[10px] sm:text-[11px] text-slate-400">
           Corpus: 10 Attacks + 5 Legitimate Flows &bull; 29 Pytest Invariant Tests
         </span>
       </div>
 
       {/* Primary Measured Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <MetricCard
           title="Attack Success Rate"
           value={evalData ? `${evalData.attack_success_rate_percent}%` : '--'}
@@ -114,7 +114,7 @@ export const Evaluation: React.FC = () => {
 
       {/* Section 17 Detailed Corpus Breakdown Display */}
       {evalData && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 p-4 rounded-2xl border border-slate-800 bg-[#0E1524]/90 text-center font-mono text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 p-3 sm:p-4 rounded-2xl border border-slate-800 bg-[#0E1524]/90 text-center font-mono text-xs">
           <div className="p-2 rounded-xl bg-slate-950 border border-slate-850">
             <span className="text-slate-500 text-[10px] block">TEST CASES RUN</span>
             <span className="text-white font-bold text-sm">{evalData.test_cases_run}</span>
@@ -149,9 +149,9 @@ export const Evaluation: React.FC = () => {
       {/* Two Column Layout: Corpus Individual Runs + Pytest Terminal */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left Column: Attack Corpus Runs */}
-        <div className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-3 font-mono text-xs">
+        <div className="p-3.5 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-3 font-mono text-xs">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-            <span className="font-bold text-white uppercase">Attacks Corpus (10 Cases)</span>
+            <span className="font-bold text-white uppercase text-xs">Attacks Corpus (10 Cases)</span>
             <span className="text-[10px] text-emerald-400 font-bold">100% Intercepted</span>
           </div>
           <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
@@ -160,14 +160,14 @@ export const Evaluation: React.FC = () => {
                 key={item.id}
                 className="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-850 text-[11px]"
               >
-                <div className="flex items-center space-x-2 truncate">
+                <div className="flex items-center space-x-2 truncate mr-1">
                   <XCircle className="w-3.5 h-3.5 text-rose-400 shrink-0" />
                   <span className="text-slate-400 font-bold">{item.id}:</span>
                   <span className="text-slate-200 truncate">{item.name}</span>
                 </div>
-                <div className="flex items-center space-x-2 shrink-0">
-                  <span className="text-rose-400 font-bold">{item.decision}</span>
-                  <span className="text-[9px] px-1.5 rounded bg-slate-800 text-slate-400">
+                <div className="flex items-center space-x-1.5 shrink-0">
+                  <span className="text-rose-400 font-bold text-[10px]">{item.decision}</span>
+                  <span className="text-[9px] px-1 rounded bg-slate-800 text-slate-400">
                     Risk {item.risk_score}
                   </span>
                 </div>
@@ -177,9 +177,9 @@ export const Evaluation: React.FC = () => {
         </div>
 
         {/* Right Column: Legitimate Corpus Runs */}
-        <div className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-3 font-mono text-xs">
+        <div className="p-3.5 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-3 font-mono text-xs">
           <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-            <span className="font-bold text-white uppercase">Legitimate Corpus (5 Cases)</span>
+            <span className="font-bold text-white uppercase text-xs">Legitimate Corpus (5 Cases)</span>
             <span className="text-[10px] text-emerald-400 font-bold">100% Completed</span>
           </div>
           <div className="space-y-1.5 max-h-72 overflow-y-auto pr-1">
@@ -188,14 +188,14 @@ export const Evaluation: React.FC = () => {
                 key={item.id}
                 className="flex items-center justify-between p-2 rounded-lg bg-slate-950 border border-slate-850 text-[11px]"
               >
-                <div className="flex items-center space-x-2 truncate">
+                <div className="flex items-center space-x-2 truncate mr-1">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   <span className="text-slate-400 font-bold">{item.id}:</span>
                   <span className="text-slate-200 truncate">{item.name}</span>
                 </div>
-                <div className="flex items-center space-x-2 shrink-0">
-                  <span className="text-emerald-400 font-bold">{item.decision}</span>
-                  <span className="text-[9px] px-1.5 rounded bg-slate-800 text-slate-400">
+                <div className="flex items-center space-x-1.5 shrink-0">
+                  <span className="text-emerald-400 font-bold text-[10px]">{item.decision}</span>
+                  <span className="text-[9px] px-1 rounded bg-slate-800 text-slate-400">
                     Risk {item.risk_score}
                   </span>
                 </div>
@@ -206,18 +206,18 @@ export const Evaluation: React.FC = () => {
       </div>
 
       {/* Live Test Suite Terminal Output */}
-      <div className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-3 font-mono text-xs">
-        <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+      <div className="p-3.5 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-3 font-mono text-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-800 gap-1">
           <div className="flex items-center space-x-2 text-slate-300 font-bold">
-            <Terminal className="w-4 h-4 text-cyan-400" />
-            <span>PYTEST INVARIANTS TEST LOG (29 TESTS)</span>
+            <Terminal className="w-4 h-4 text-cyan-400 shrink-0" />
+            <span className="truncate">PYTEST INVARIANTS TEST LOG (29 TESTS)</span>
           </div>
           <span className="text-[10px] text-emerald-400 font-bold">
             29 / 29 Security Invariant Tests Passed
           </span>
         </div>
 
-        <pre className="p-4 rounded-xl bg-slate-950 text-slate-300 overflow-x-auto text-[11px] leading-relaxed max-h-56 border border-slate-900">
+        <pre className="p-3 sm:p-4 rounded-xl bg-slate-950 text-slate-300 overflow-x-auto text-[10px] sm:text-[11px] leading-relaxed max-h-56 border border-slate-900 whitespace-pre-wrap break-all">
           {consoleOutput || 'Running test execution harness...'}
         </pre>
       </div>

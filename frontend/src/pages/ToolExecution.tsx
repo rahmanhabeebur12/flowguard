@@ -141,13 +141,13 @@ export const ToolExecution: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <Wrench className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Tool Boundary Sandbox &bull; 6 Sensitive Tools
             </h1>
           </div>
@@ -159,16 +159,16 @@ export const ToolExecution: React.FC = () => {
         {/* Direct Bypass Test Button */}
         <button
           onClick={simulateDirectBypassAttempt}
-          className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 font-mono text-xs font-bold transition-all shadow-glow-red mt-3 md:mt-0"
+          className="flex items-center justify-center space-x-2 px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/40 text-rose-300 font-mono text-xs font-bold transition-all shadow-glow-red w-full sm:w-auto"
         >
-          <AlertOctagon className="w-4 h-4 text-rose-400" />
+          <AlertOctagon className="w-4 h-4 text-rose-400 shrink-0" />
           <span>Test Direct Bypass Attack</span>
         </button>
       </div>
 
       {/* Bypass Result Alert */}
       {bypassResult && (
-        <div className="p-4 rounded-xl border border-rose-500/50 bg-rose-500/10 text-rose-300 text-xs font-mono flex items-start justify-between">
+        <div className="p-3.5 sm:p-4 rounded-xl border border-rose-500/50 bg-rose-500/10 text-rose-300 text-xs font-mono flex items-start justify-between gap-2">
           <div className="flex items-start space-x-2">
             <ShieldAlert className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
             <div>
@@ -178,7 +178,7 @@ export const ToolExecution: React.FC = () => {
           </div>
           <button
             onClick={() => setBypassResult(null)}
-            className="text-slate-400 hover:text-slate-200 text-xs font-mono ml-4"
+            className="text-slate-400 hover:text-slate-200 text-xs font-mono shrink-0 ml-2"
           >
             Dismiss
           </button>
@@ -186,15 +186,15 @@ export const ToolExecution: React.FC = () => {
       )}
 
       {/* Interactive Tool Invocation Sandbox */}
-      <div className="p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-3 border-b border-slate-800">
+      <div className="p-3.5 sm:p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-5 sm:space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-2">
           <div className="flex items-center space-x-2">
-            <Play className="w-4 h-4 text-cyan-400" />
+            <Play className="w-4 h-4 text-cyan-400 shrink-0" />
             <h2 className="text-xs font-mono font-bold uppercase text-white tracking-wider">
               Interactive Tool Execution Gate
             </h2>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 mt-2 md:mt-0">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 w-fit">
             PROPOSE &rarr; FLOWGUARD &rarr; POLICY &rarr; EXECUTE OR BLOCK
           </span>
         </div>
@@ -378,7 +378,7 @@ export const ToolExecution: React.FC = () => {
               <div className="space-y-3">
                 {/* Decision Badge */}
                 <div
-                  className={`p-3 rounded-xl border flex items-center justify-between ${
+                  className={`p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2 ${
                     evalDecision === 'ALLOW'
                       ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-300'
                       : evalDecision === 'APPROVAL'
@@ -403,7 +403,7 @@ export const ToolExecution: React.FC = () => {
                       </span>
                     </div>
                   </div>
-                  <span className="text-[10px] px-2 py-1 rounded bg-black/40 font-bold">
+                  <span className="text-[10px] px-2 py-1 rounded bg-black/40 font-bold w-fit">
                     Risk: {proposalResult.evaluation.risk_score}/100
                   </span>
                 </div>
@@ -420,7 +420,7 @@ export const ToolExecution: React.FC = () => {
                 {proposalResult.execution && (
                   <div className="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/30 text-emerald-300 text-[11px] space-y-1">
                     <span className="text-emerald-400 font-bold block">TOOL OUTPUT (PROTECTED MOCK):</span>
-                    <pre className="text-[10px] text-slate-300 overflow-x-auto">
+                    <pre className="text-[10px] text-slate-300 overflow-x-auto whitespace-pre-wrap break-all">
                       {JSON.stringify(proposalResult.execution, null, 2)}
                     </pre>
                   </div>
@@ -444,19 +444,19 @@ export const ToolExecution: React.FC = () => {
           return (
             <div
               key={tool.id}
-              className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 hover:border-cyan-500/40 transition-colors"
+              className="p-4 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 hover:border-cyan-500/40 transition-colors"
             >
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center space-x-3 min-w-0">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white">{tool.name}</h3>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-bold text-white truncate">{tool.name}</h3>
                     <span className="text-[10px] font-mono text-slate-400">{tool.category}</span>
                   </div>
                 </div>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+                <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold shrink-0">
                   PROTECTED
                 </span>
               </div>

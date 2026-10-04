@@ -51,26 +51,26 @@ export const SecurityInvariantsModal: React.FC<SecurityInvariantsModalProps> = (
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-      <div className="relative w-full max-w-2xl rounded-2xl border border-cyan-500/40 bg-[#0C121E] shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+      <div className="relative w-full max-w-2xl rounded-2xl border border-cyan-500/40 bg-[#0C121E] shadow-2xl p-4 sm:p-6 space-y-4 sm:space-y-5 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-cyber-border">
-          <div className="flex items-center space-x-2.5">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+          <div className="flex items-center space-x-2.5 min-w-0 mr-2">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <Lock className="w-5 h-5" />
             </span>
-            <div>
-              <h2 className="text-base font-bold text-white font-mono uppercase tracking-wider">
-                FlowGuard Zero-Trust Security Principles
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-base font-bold text-white font-mono uppercase tracking-wider truncate">
+                FlowGuard Security Principles
               </h2>
-              <p className="text-xs text-slate-400 font-mono">
+              <p className="text-[10px] sm:text-xs text-slate-400 font-mono truncate">
                 Core Invariant: &ldquo;AI can be manipulated. Authority cannot.&rdquo;
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
@@ -83,16 +83,16 @@ export const SecurityInvariantsModal: React.FC<SecurityInvariantsModalProps> = (
             return (
               <div
                 key={inv.number}
-                className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-cyan-500/40 transition-all space-y-1.5"
+                className="p-3 sm:p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-cyan-500/40 transition-all space-y-1.5"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <span className="w-5 h-5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-[10px] font-bold">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex items-center space-x-2 min-w-0">
+                    <span className="w-5 h-5 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-[10px] font-bold shrink-0">
                       {inv.number}
                     </span>
-                    <span className="font-bold text-slate-200">{inv.title}</span>
+                    <span className="font-bold text-slate-200 text-xs truncate">{inv.title}</span>
                   </div>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
                     ENFORCED
                   </span>
                 </div>
@@ -109,13 +109,13 @@ export const SecurityInvariantsModal: React.FC<SecurityInvariantsModalProps> = (
         </div>
 
         {/* Footer */}
-        <div className="pt-3 border-t border-cyber-border flex justify-between items-center">
-          <span className="text-[11px] font-mono text-slate-500">
+        <div className="pt-3 border-t border-cyber-border flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-2 sm:gap-4">
+          <span className="text-[10px] sm:text-[11px] font-mono text-slate-500">
             Runtime Policy Guarantee &bull; Reference Monitor v1.0
           </span>
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs shadow-glow-cyan transition-all"
+            className="w-full sm:w-auto px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs shadow-glow-cyan transition-all text-center"
           >
             Close Inspector
           </button>

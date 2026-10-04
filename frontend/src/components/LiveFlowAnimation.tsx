@@ -38,10 +38,10 @@ export const LiveFlowAnimation: React.FC<LiveFlowAnimationProps> = ({
   currentStepIndex,
 }) => {
   return (
-    <div className="p-4 rounded-2xl border border-cyber-border bg-[#0C121E]/90 backdrop-blur-md shadow-2xl">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 pb-2 border-b border-cyber-border gap-2">
+    <div className="p-2.5 sm:p-4 rounded-2xl border border-cyber-border bg-[#0C121E]/90 backdrop-blur-md shadow-2xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-3 sm:mb-4 pb-2 border-b border-cyber-border gap-2">
         <div className="flex items-center space-x-2">
-          <span className="flex h-2.5 w-2.5 relative">
+          <span className="flex h-2.5 w-2.5 relative shrink-0">
             {isRunning && (
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
             )}
@@ -51,31 +51,31 @@ export const LiveFlowAnimation: React.FC<LiveFlowAnimationProps> = ({
               }`}
             ></span>
           </span>
-          <span className="text-xs font-mono font-bold tracking-wider text-slate-200 uppercase">
+          <span className="text-[11px] sm:text-xs font-mono font-bold tracking-wider text-slate-200 uppercase truncate">
             Live Execution Pipeline &bull; Zero-Trust Reference Monitor
           </span>
         </div>
-        <div className="flex items-center space-x-2 text-[10px] font-mono text-slate-400">
-          <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[10px] font-mono text-slate-400">
+          <span className="px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
             Control Plane
           </span>
           <span>&rarr;</span>
-          <span className="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
+          <span className="px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">
             Untrusted Agent
           </span>
           <span>&rarr;</span>
-          <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <span className="px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
             FlowGuard Gateway
           </span>
           <span>&rarr;</span>
-          <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             Isolated Tool
           </span>
         </div>
       </div>
 
       {/* Horizontal Pipeline Steps */}
-      <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-9 gap-1.5 sm:gap-2">
         {STAGES.map((stage, idx) => {
           const Icon = stage.icon;
           const isActive = idx === currentStepIndex && isRunning;

@@ -91,13 +91,13 @@ export const AuditLog: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <ScrollText className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Security Audit Log
             </h1>
           </div>
@@ -107,12 +107,12 @@ export const AuditLog: React.FC = () => {
         </div>
 
         {/* Filter Pills and Export Controls */}
-        <div className="flex flex-wrap items-center gap-2 mt-3 md:mt-0">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           {['ALL', 'ALLOW', 'BLOCK', 'APPROVAL', 'HIGH_RISK'].map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-mono font-bold transition-all ${
                 filter === f
                   ? 'bg-cyan-500 text-slate-950 shadow-glow-cyan'
                   : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
@@ -122,7 +122,7 @@ export const AuditLog: React.FC = () => {
             </button>
           ))}
 
-          <div className="flex items-center space-x-1.5 pl-2 border-l border-slate-800">
+          <div className="flex items-center space-x-1.5 pl-0 sm:pl-2 border-l-0 sm:border-l border-slate-800">
             <button
               onClick={handleExportJson}
               title="Export as JSON"
@@ -158,9 +158,9 @@ export const AuditLog: React.FC = () => {
       {/* Two Column Layout: Table + Detail Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Audit Records Table */}
-        <div className="lg:col-span-2 p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md">
+        <div className="lg:col-span-2 p-3.5 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs font-mono">
+            <table className="w-full text-left text-xs font-mono min-w-[550px]">
               <thead>
                 <tr className="text-slate-400 border-b border-slate-800">
                   <th className="pb-3 font-medium">TIME</th>
@@ -249,7 +249,7 @@ export const AuditLog: React.FC = () => {
         </div>
 
         {/* Right 1 Col: Event Inspector Detail Drawer */}
-        <div className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4">
+        <div className="p-3.5 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <span className="text-xs font-mono font-bold uppercase text-white">
               Security Evaluation Inspector
@@ -288,7 +288,7 @@ export const AuditLog: React.FC = () => {
                 <span className="text-slate-500 text-[10px] uppercase block mb-1">
                   Proposed Arguments:
                 </span>
-                <pre className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-cyan-300 text-[11px] overflow-x-auto">
+                <pre className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-cyan-300 text-[11px] overflow-x-auto whitespace-pre-wrap break-all">
                   {JSON.stringify(selectedRecord.arguments, null, 2)}
                 </pre>
               </div>

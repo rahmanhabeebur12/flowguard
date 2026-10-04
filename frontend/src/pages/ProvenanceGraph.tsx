@@ -138,10 +138,10 @@ export const ProvenanceGraph: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <GitFork className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Information-Flow Provenance DAG
             </h1>
           </div>
@@ -151,12 +151,12 @@ export const ProvenanceGraph: React.FC = () => {
         </div>
 
         {/* Task selector */}
-        <div className="flex items-center space-x-2">
-          <label className="text-xs font-mono text-slate-400 font-semibold">TASK TRACE:</label>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 w-full sm:w-auto">
+          <label className="text-xs font-mono text-slate-400 font-semibold shrink-0">TASK TRACE:</label>
           <select
             value={taskId}
             onChange={(e) => setTaskId(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500 max-w-xs"
+            className="w-full sm:max-w-xs px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500"
           >
             {tasksList.map((t) => (
               <option key={t.id} value={t.id}>
@@ -170,17 +170,17 @@ export const ProvenanceGraph: React.FC = () => {
       {/* Main Layout: Visual Graph Area + Inspector Drawer */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: DAG Visualizer */}
-        <div className="lg:col-span-2 p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/85 backdrop-blur-md space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="lg:col-span-2 p-3.5 sm:p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/85 backdrop-blur-md space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-2">
             <div className="flex items-center space-x-2">
               <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
                 Data Lineage DAG &bull; Click Node to Inspect
               </span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 shrink-0">
                 {graphData?.nodes.length ?? 0} Nodes
               </span>
             </div>
-            <div className="flex items-center space-x-3 text-[10px] font-mono">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] font-mono">
               <span className="flex items-center space-x-1 text-emerald-400">
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
                 <span>Trusted User Intent</span>
@@ -217,29 +217,29 @@ export const ProvenanceGraph: React.FC = () => {
 
                   <div
                     onClick={() => setSelectedNode(node)}
-                    className={`p-4 rounded-xl border cursor-pointer transition-all duration-200 ${badge.border} ${badge.bg} ${
+                    className={`p-3 sm:p-4 rounded-xl border cursor-pointer transition-all duration-200 ${badge.border} ${badge.bg} ${
                       isSelected ? `${badge.glow} scale-[1.01] border-cyan-400` : 'hover:border-slate-600'
                     }`}
                   >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="p-2 rounded-lg bg-black/40 text-slate-200">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2.5">
+                      <div className="flex items-center space-x-3 min-w-0">
+                        <div className="p-2 rounded-lg bg-black/40 text-slate-200 shrink-0">
                           <Icon className="w-4 h-4" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <div className="flex items-center space-x-2">
-                            <span className="text-xs font-bold text-white">{node.label}</span>
-                            <span className="text-[10px] font-mono text-slate-400">
+                            <span className="text-xs font-bold text-white truncate">{node.label}</span>
+                            <span className="text-[10px] font-mono text-slate-400 shrink-0">
                               ({node.source})
                             </span>
                           </div>
-                          <p className="text-[11px] font-mono text-slate-300 mt-1 line-clamp-1">
+                          <p className="text-[11px] font-mono text-slate-300 mt-1 line-clamp-1 break-all">
                             {node.payloadSnippet || 'No payload data'}
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex flex-col items-end space-y-1">
+                      <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-1 shrink-0">
                         <span
                           className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded border ${
                             hasUntrustedTaint
@@ -249,7 +249,7 @@ export const ProvenanceGraph: React.FC = () => {
                         >
                           {node.trustLevel}
                         </span>
-                        <div className="flex space-x-1">
+                        <div className="flex flex-wrap gap-1">
                           {node.taintLabels.map((t) => (
                             <span
                               key={t}
@@ -269,7 +269,7 @@ export const ProvenanceGraph: React.FC = () => {
         </div>
 
         {/* Right 1 Col: Detailed Node Inspector (Phase 10) */}
-        <div className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/85 backdrop-blur-md space-y-4">
+        <div className="p-3.5 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/85 backdrop-blur-md space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <span className="text-xs font-mono font-bold uppercase text-white tracking-wider">
               Node Provenance Inspector
@@ -286,10 +286,10 @@ export const ProvenanceGraph: React.FC = () => {
                 <p className="text-sm font-bold text-white font-sans">{selectedNode.label}</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-950 border border-slate-800">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 rounded-xl bg-slate-950 border border-slate-800">
                 <div>
                   <span className="text-slate-500 text-[10px] block">NODE ID:</span>
-                  <span className="text-cyan-400 font-bold">{selectedNode.id}</span>
+                  <span className="text-cyan-400 font-bold break-all">{selectedNode.id}</span>
                 </div>
                 <div>
                   <span className="text-slate-500 text-[10px] block">TYPE:</span>
@@ -297,7 +297,7 @@ export const ProvenanceGraph: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-slate-500 text-[10px] block">SOURCE:</span>
-                  <span className="text-slate-300">{selectedNode.source}</span>
+                  <span className="text-slate-300 break-all">{selectedNode.source}</span>
                 </div>
                 <div>
                   <span className="text-slate-500 text-[10px] block">TRUST STATE:</span>
@@ -338,17 +338,17 @@ export const ProvenanceGraph: React.FC = () => {
                   Lineage Relationships:
                 </span>
                 <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 space-y-1">
-                  <div className="flex justify-between">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
                     <span className="text-slate-500">Parent Nodes:</span>
-                    <span className="text-slate-300">
+                    <span className="text-slate-300 break-all">
                       {selectedNode.parentIds?.length > 0
                         ? selectedNode.parentIds.join(', ')
                         : 'Root Node (User Intent)'}
                     </span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
                     <span className="text-slate-500">Derived Children:</span>
-                    <span className="text-slate-300">
+                    <span className="text-slate-300 break-all">
                       {selectedNode.childIds?.length > 0
                         ? selectedNode.childIds.join(', ')
                         : 'Terminal Action Node'}
@@ -361,7 +361,7 @@ export const ProvenanceGraph: React.FC = () => {
                 <span className="text-slate-500 text-[10px] uppercase block mb-1 font-bold">
                   Payload Metadata:
                 </span>
-                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 max-h-32 overflow-y-auto leading-relaxed">
+                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300 max-h-32 overflow-y-auto leading-relaxed break-all">
                   {selectedNode.payloadSnippet}
                 </div>
               </div>

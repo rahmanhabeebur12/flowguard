@@ -33,13 +33,13 @@ export const Settings: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in max-w-4xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <SettingsIcon className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               Settings &bull; Runtime Configuration
             </h1>
           </div>
@@ -57,13 +57,13 @@ export const Settings: React.FC = () => {
       )}
 
       {/* AI Agent Configuration Card */}
-      <div className="p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 font-mono text-xs">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="p-4 sm:p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 font-mono text-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-800 gap-1.5">
           <div className="flex items-center space-x-2 text-white font-bold">
-            <Cpu className="w-4 h-4 text-cyan-400" />
+            <Cpu className="w-4 h-4 text-cyan-400 shrink-0" />
             <span className="uppercase">AI Agent Runtime Mode</span>
           </div>
-          <span className="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+          <span className="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20 w-fit">
             OFFLINE READY &bull; NO PAID API REQUIRED
           </span>
         </div>
@@ -126,10 +126,10 @@ export const Settings: React.FC = () => {
       </div>
 
       {/* Database State Management Card */}
-      <div className="p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 font-mono text-xs">
+      <div className="p-4 sm:p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 font-mono text-xs">
         <div className="flex items-center justify-between pb-3 border-b border-slate-800">
           <div className="flex items-center space-x-2 text-white font-bold">
-            <Database className="w-4 h-4 text-cyan-400" />
+            <Database className="w-4 h-4 text-cyan-400 shrink-0" />
             <span className="uppercase">Demo State &amp; Reseed</span>
           </div>
         </div>
@@ -141,7 +141,7 @@ export const Settings: React.FC = () => {
         <button
           onClick={handleReset}
           disabled={isResetting}
-          className="flex items-center space-x-2 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-300 transition-colors disabled:opacity-50"
+          className="flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-300 transition-colors disabled:opacity-50 w-full sm:w-auto"
         >
           <RefreshCw className={`w-4 h-4 ${isResetting ? 'animate-spin' : ''}`} />
           <span>{isResetting ? 'Resetting System...' : 'Reset Demo State & Reseed'}</span>
@@ -149,9 +149,9 @@ export const Settings: React.FC = () => {
       </div>
 
       {/* Security Invariants Reference Card */}
-      <div className="p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 font-mono text-xs">
+      <div className="p-4 sm:p-6 rounded-2xl border border-cyber-border bg-[#0E1524]/80 backdrop-blur-md space-y-4 font-mono text-xs">
         <div className="flex items-center space-x-2 text-white font-bold pb-3 border-b border-slate-800">
-          <Lock className="w-4 h-4 text-cyan-400" />
+          <Lock className="w-4 h-4 text-cyan-400 shrink-0" />
           <span className="uppercase">The 8 Security Invariants Reference</span>
         </div>
 

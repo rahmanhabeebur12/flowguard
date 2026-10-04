@@ -23,13 +23,13 @@ export const SecurityArchitecture: React.FC = () => {
   return (
     <div className="space-y-8 animate-fade-in max-w-5xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border">
+      <div className="flex flex-col md:flex-row md:items-center justify-between pb-4 border-b border-cyber-border gap-3">
         <div>
           <div className="flex items-center space-x-2">
-            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400">
+            <span className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-400 shrink-0">
               <Layers className="w-5 h-5" />
             </span>
-            <h1 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
+            <h1 className="text-lg sm:text-xl md:text-2xl font-extrabold text-white tracking-tight">
               FlowGuard Security Architecture
             </h1>
           </div>
@@ -39,25 +39,25 @@ export const SecurityArchitecture: React.FC = () => {
         </div>
 
         {/* Core Principle Badge */}
-        <div className="mt-3 md:mt-0 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-xs font-bold">
+        <div className="px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-[10px] sm:text-xs font-bold w-fit">
           LLM OUTSIDE TRUSTED COMPUTING BASE (TCB)
         </div>
       </div>
 
       {/* Main Architecture Diagram Container */}
-      <div className="p-6 md:p-8 rounded-3xl border border-cyber-border bg-[#0E1526]/90 backdrop-blur-xl shadow-2xl space-y-8">
+      <div className="p-3.5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl border border-cyber-border bg-[#0E1526]/90 backdrop-blur-xl shadow-2xl space-y-6 sm:space-y-8">
         {/* ========================================================================= */}
         {/* TIER 1: TRUSTED CONTROL PLANE                                             */}
         {/* ========================================================================= */}
-        <div className="p-5 rounded-2xl border border-cyan-500/40 bg-cyan-950/10 space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-5 rounded-2xl border border-cyan-500/40 bg-cyan-950/10 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
             <div className="flex items-center space-x-2">
-              <ShieldCheck className="w-5 h-5 text-cyan-400" />
-              <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-cyan-300">
+              <ShieldCheck className="w-5 h-5 text-cyan-400 shrink-0" />
+              <h2 className="text-xs sm:text-sm font-mono font-bold uppercase tracking-wider text-cyan-300">
                 1. Trusted Control Plane (Authority Synthesis)
               </h2>
             </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-200 border border-cyan-500/40">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-200 border border-cyan-500/40 w-fit">
               TRUSTED USER DOMAIN
             </span>
           </div>
@@ -94,7 +94,7 @@ export const SecurityArchitecture: React.FC = () => {
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t-2 border-dashed border-rose-500/40"></div>
           </div>
-          <span className="relative px-4 py-1.5 rounded-full bg-slate-950 border border-rose-500/60 text-rose-400 font-mono text-xs font-bold uppercase tracking-wider shadow-glow-red">
+          <span className="relative px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-slate-950 border border-rose-500/60 text-rose-400 font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-glow-red text-center">
             🛡 Physical Zero-Trust Boundary (TCB Barrier)
           </span>
         </div>
@@ -102,15 +102,15 @@ export const SecurityArchitecture: React.FC = () => {
         {/* ========================================================================= */}
         {/* TIER 2: POTENTIALLY UNTRUSTED EXECUTION PLANE                             */}
         {/* ========================================================================= */}
-        <div className="p-5 rounded-2xl border border-rose-500/40 bg-rose-950/10 space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-5 rounded-2xl border border-rose-500/40 bg-rose-950/10 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
             <div className="flex items-center space-x-2">
-              <Bot className="w-5 h-5 text-rose-400" />
-              <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-rose-300">
+              <Bot className="w-5 h-5 text-rose-400 shrink-0" />
+              <h2 className="text-xs sm:text-sm font-mono font-bold uppercase tracking-wider text-rose-300">
                 2. Potentially Untrusted Execution Plane (Reasoning &amp; Data)
               </h2>
             </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-200 border border-rose-500/40">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-200 border border-rose-500/40 w-fit">
               UNTRUSTED ZONE
             </span>
           </div>
@@ -150,20 +150,20 @@ export const SecurityArchitecture: React.FC = () => {
         {/* ========================================================================= */}
         {/* TIER 3: FLOWGUARD REFERENCE MONITOR & POLICY ENGINE                       */}
         {/* ========================================================================= */}
-        <div className="p-5 rounded-2xl border border-cyan-500/50 bg-gradient-to-r from-slate-950 via-[#0B1526] to-slate-950 shadow-glow-cyan space-y-4">
-          <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-5 rounded-2xl border border-cyan-500/50 bg-gradient-to-r from-slate-950 via-[#0B1526] to-slate-950 shadow-glow-cyan space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
             <div className="flex items-center space-x-2">
-              <ShieldAlert className="w-5 h-5 text-cyan-400" />
-              <h2 className="text-sm font-mono font-bold uppercase tracking-wider text-white">
-                3. FlowGuard Reference Monitor &bull; Independent Policy Gate
+              <ShieldAlert className="w-5 h-5 text-cyan-400 shrink-0" />
+              <h2 className="text-xs sm:text-sm font-mono font-bold uppercase tracking-wider text-white">
+                3. FlowGuard Reference Monitor &bull; Policy Gate
               </h2>
             </div>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold w-fit">
               NON-BYPASSABLE
             </span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 text-center font-mono text-[11px]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center font-mono text-[11px]">
             <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
               <span className="text-cyan-400 font-bold block">1. Tool</span>
               <span className="text-slate-400 text-[10px]">Action Auth</span>
@@ -215,8 +215,8 @@ export const SecurityArchitecture: React.FC = () => {
         {/* ========================================================================= */}
         {/* TIER 4: PROTECTED TOOLS & REAL SYSTEMS                                    */}
         {/* ========================================================================= */}
-        <div className="p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/60 space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+        <div className="p-4 sm:p-5 rounded-2xl border border-cyber-border bg-[#0E1524]/60 space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-800 gap-1">
             <span className="text-xs font-mono font-bold uppercase text-slate-300">
               4. Protected Sensitive Tools &amp; Operating Environment
             </span>
@@ -225,9 +225,9 @@ export const SecurityArchitecture: React.FC = () => {
             </span>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 text-center text-xs font-mono">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center text-xs font-mono">
             {['File System', 'Email SMTP', 'Database', 'HTTP Egress', 'Calendar', 'Banking API'].map((t) => (
-              <div key={t} className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300">
+              <div key={t} className="p-2 sm:p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 truncate">
                 {t}
               </div>
             ))}
