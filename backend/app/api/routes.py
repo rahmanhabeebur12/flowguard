@@ -254,19 +254,21 @@ def get_approvals():
 
 @router.post("/approvals/{req_id}/approve")
 def approve_request(req_id: str, action: ApprovalActionRequest):
-    req = ApprovalRequestStore.resolve(req_id, approved=True)
+    req = ApprovalRequestStore.get_by_id(req_id)
     if not req:
         raise HTTPException(status_code=404, detail="Approval request not found")
+    if req.get("status") != "PENDING":
+        raise HTTPException(status_code=400, detail="Approval request is not pending (already resolved)")
+
+    req = ApprovalRequestStore.resolve(req_id, approved=True)
     
     # Execute the approved call
     tool_name = req["tool_name"]
     arguments = req["arguments"]
     task_id = req["task_id"]
 
-    import hashlib
-    args_hash = hashlib.sha256(json.dumps(arguments, sort_keys=True).encode()).hexdigest()[:16]
     from app.tools.base_tool import FlowGuardExecutionToken
-    token = FlowGuardExecutionToken.generate(task_id, tool_name, args_hash)
+    token = FlowGuardExecutionToken.generate(task_id, tool_name, arguments)
 
     exec_res = ReferenceMonitor.execute(
         task_id=task_id,
@@ -291,9 +293,13 @@ def approve_request(req_id: str, action: ApprovalActionRequest):
 
 @router.post("/approvals/{req_id}/reject")
 def reject_request(req_id: str, action: ApprovalActionRequest):
-    req = ApprovalRequestStore.resolve(req_id, approved=False)
+    req = ApprovalRequestStore.get_by_id(req_id)
     if not req:
         raise HTTPException(status_code=404, detail="Approval request not found")
+    if req.get("status") != "PENDING":
+        raise HTTPException(status_code=400, detail="Approval request is not pending (already resolved)")
+
+    req = ApprovalRequestStore.resolve(req_id, approved=False)
     
     AuditLogger.log_evaluation(
         task_id=req["task_id"],
@@ -315,16 +321,24 @@ def list_tools():
 @router.post("/evaluation/run-tests")
 def run_evaluation_suite():
     """
-    Executes actual pytest backend test suite and reports empirical metrics.
-    No fabricated results!
+    Executes actual pytest backend test suite and the 15-case empirical corpus.
+    All metrics are computed live from execution. Zero fabricated results!
     """
-    repo_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-    test_file = os.path.join(repo_root, "tests", "test_security_invariants.py")
+    from app.core.evaluation_corpus import run_empirical_evaluation_corpus
     
-    # Run pytest via subprocess
+    # Run empirical 15-case attack/legitimate corpus
+    corpus_results = run_empirical_evaluation_corpus()
+
+    repo_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+    test_files = [
+        os.path.join(repo_root, "tests", "test_security_invariants.py"),
+        os.path.join(repo_root, "tests", "test_token_and_security_boundary.py"),
+        os.path.join(repo_root, "tests", "test_advanced_attacks_and_scenarios.py"),
+    ]
+    
     cmd = [
         os.path.join(repo_root, ".venv", "bin", "pytest"),
-        test_file,
+        *test_files,
         "-v",
         "--tb=short"
     ]
@@ -349,29 +363,12 @@ def run_evaluation_suite():
         stderr = ""
         passed = False
 
-    # Calculate empirical numbers from AuditLogger & live tests
-    metrics = AuditLogger.get_metrics()
-    total_evals = max(metrics["total_evaluations"], 1)
-    blocked = metrics["blocked_flows"]
-    allowed = metrics["allowed_actions"]
-
     return {
         "status": "SUCCESS" if passed else "FAILED",
         "exit_code": proc.returncode if 'proc' in locals() else -1,
         "stdout": stdout,
         "stderr": stderr,
-        "empirical_metrics": {
-            "label": "MVP TEST RESULTS (Empirical Measurements)",
-            "tests_passed": 10 if passed else 0,
-            "tests_total": 10,
-            "attack_success_rate_percent": 0.0, # Zero attacks succeeded past Reference Monitor
-            "sensitive_flow_block_rate_percent": 100.0, # 100% of unauthorized flows blocked
-            "legitimate_task_completion_percent": 100.0, # Legitimate requests passed
-            "false_block_rate_percent": 0.0, # Legitimate requests not blocked
-            "measured_evaluations_count": total_evals,
-            "blocked_count": blocked,
-            "allowed_count": allowed,
-        }
+        "empirical_metrics": corpus_results,
     }
 
 @router.post("/reset")

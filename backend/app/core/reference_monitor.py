@@ -115,8 +115,7 @@ class ReferenceMonitor:
         # 4. Generate Execution Token if ALLOWED
         execution_token = None
         if eval_result.decision == "ALLOW":
-            args_hash = hashlib.sha256(json.dumps(arguments, sort_keys=True).encode()).hexdigest()[:16]
-            execution_token = FlowGuardExecutionToken.generate(task_id, tool_name, args_hash)
+            execution_token = FlowGuardExecutionToken.generate(task_id, tool_name, arguments)
 
         # 5. Log to Audit Store
         audit_record = AuditLogger.log_evaluation(
@@ -163,7 +162,7 @@ class ReferenceMonitor:
         """
         tool = get_tool(tool_name)
         try:
-            result = tool.run(arguments, execution_token=execution_token)
+            result = tool.run(arguments, execution_token=execution_token, task_id=task_id)
             
             # Record execution in audit
             if audit_id:

@@ -44,5 +44,10 @@ def test_evaluation_test_runner():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "SUCCESS"
-    assert data["empirical_metrics"]["tests_passed"] == 10
+    assert data["empirical_metrics"]["test_cases_run"] == 15
+    assert data["empirical_metrics"]["attacks_blocked"] == 10
+    assert data["empirical_metrics"]["attacks_succeeded"] == 0
+    assert data["empirical_metrics"]["legitimate_allowed"] == 5
     assert data["empirical_metrics"]["attack_success_rate_percent"] == 0.0
+    assert data["empirical_metrics"]["sensitive_flow_block_rate_percent"] == 100.0
+    assert data["empirical_metrics"]["legitimate_task_completion_percent"] == 100.0
