@@ -96,9 +96,12 @@ export interface MetricsData {
   allowed_actions: number;
   pending_approvals: number;
   executed_tools: number;
+  high_risk_attempts: number;
+  active_tainted_flows: number;
   active_tasks: number;
   attacks_detected: number;
 }
+
 
 export interface AttackScenario {
   id: string;

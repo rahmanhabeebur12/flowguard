@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ScrollText,
   Search,
-  Filter,
   CheckCircle2,
   XCircle,
   AlertTriangle,
@@ -11,9 +10,11 @@ import {
   ShieldAlert,
   Clock,
   Code,
+  Download,
+  FileSpreadsheet,
 } from 'lucide-react';
 import { api } from '../services/api';
-import { AuditRecord, DecisionType } from '../types';
+import { AuditRecord } from '../types';
 
 export const AuditLog: React.FC = () => {
   const [logs, setLogs] = useState<AuditRecord[]>([]);
@@ -25,7 +26,8 @@ export const AuditLog: React.FC = () => {
   const fetchLogs = async () => {
     try {
       setLoading(true);
-      const data = await api.getAuditLogs(filter);
+      const decisionQuery = filter === 'HIGH_RISK' ? 'ALL' : filter;
+      const data = await api.getAuditLogs(decisionQuery);
       setLogs(data);
       if (data.length > 0 && !selectedRecord) {
         setSelectedRecord(data[0]);
@@ -42,6 +44,9 @@ export const AuditLog: React.FC = () => {
   }, [filter]);
 
   const filteredLogs = logs.filter((log) => {
+    if (filter === 'HIGH_RISK' && log.risk_score < 70) {
+      return false;
+    }
     if (!searchTerm) return true;
     const term = searchTerm.toLowerCase();
     return (
@@ -51,6 +56,37 @@ export const AuditLog: React.FC = () => {
       (log.reasons && log.reasons.some((r) => r.toLowerCase().includes(term)))
     );
   });
+
+  const handleExportJson = () => {
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(filteredLogs, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', dataStr);
+    downloadAnchor.setAttribute('download', `flowguard-audit-log-${new Date().toISOString().slice(0, 10)}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
+  const handleExportCsv = () => {
+    const headers = ['id', 'timestamp', 'task_id', 'tool_name', 'decision', 'risk_score', 'execution_status', 'reasons'];
+    const rows = filteredLogs.map((l) => [
+      l.id,
+      l.timestamp,
+      l.task_id,
+      l.tool_name,
+      l.decision,
+      l.risk_score,
+      l.execution_status,
+      `"${(l.reasons || []).join('; ').replace(/"/g, '""')}"`,
+    ]);
+    const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent([headers.join(','), ...rows.map((e) => e.join(','))].join('\n'));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', csvContent);
+    downloadAnchor.setAttribute('download', `flowguard-audit-log-${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
 
   return (
     <div className="space-y-6 animate-fade-in">
@@ -70,9 +106,9 @@ export const AuditLog: React.FC = () => {
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex items-center space-x-2 mt-3 md:mt-0">
-          {['ALL', 'ALLOW', 'BLOCK', 'APPROVAL'].map((f) => (
+        {/* Filter Pills and Export Controls */}
+        <div className="flex flex-wrap items-center gap-2 mt-3 md:mt-0">
+          {['ALL', 'ALLOW', 'BLOCK', 'APPROVAL', 'HIGH_RISK'].map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -82,9 +118,28 @@ export const AuditLog: React.FC = () => {
                   : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
               }`}
             >
-              {f === 'ALL' ? 'ALL EVENTS' : f}
+              {f === 'ALL' ? 'ALL' : f === 'HIGH_RISK' ? 'HIGH RISK' : f}
             </button>
           ))}
+
+          <div className="flex items-center space-x-1.5 pl-2 border-l border-slate-800">
+            <button
+              onClick={handleExportJson}
+              title="Export as JSON"
+              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-cyan-300 transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>JSON</span>
+            </button>
+            <button
+              onClick={handleExportCsv}
+              title="Export as CSV"
+              className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-slate-300 transition-colors"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" />
+              <span>CSV</span>
+            </button>
+          </div>
         </div>
       </div>
 

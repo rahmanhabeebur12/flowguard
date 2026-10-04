@@ -72,3 +72,62 @@ class CapabilityManifest(BaseModel):
         if not candidate_purpose or not self.purpose:
             return True
         return candidate_purpose.strip().lower() == self.purpose.strip().lower()
+
+class ActivePolicyManager:
+    """
+    Manages the active system capability manifest / policy baseline.
+    Changes saved by the operator immediately influence runtime decisions across
+    the live agent runtime, attack simulator, and tool sandbox.
+    """
+    _active_manifest: Optional[CapabilityManifest] = None
+
+    @classmethod
+    def get_default_manifest(cls) -> CapabilityManifest:
+        return CapabilityManifest(
+            task_id="policy-active-system",
+            user_intent="Read report.pdf, summarize it and email the summary to professor@college.edu.",
+            allowed_actions=["send_email", "read_file", "summarize"],
+            allowed_resources=["report.pdf"],
+            allowed_destinations=["professor@college.edu"],
+            release_scope=ReleaseLevel.SUMMARY_ONLY,
+            purpose="report_summary",
+            is_immutable=True,
+        )
+
+    @classmethod
+    def get_active(cls) -> CapabilityManifest:
+        if cls._active_manifest is None:
+            cls._active_manifest = cls.get_default_manifest()
+        return cls._active_manifest
+
+    @classmethod
+    def update_active(
+        cls,
+        allowed_actions: List[str],
+        allowed_resources: List[str],
+        allowed_destinations: List[str],
+        release_scope: Any,
+        purpose: str,
+        user_intent: Optional[str] = None,
+    ) -> CapabilityManifest:
+        if isinstance(release_scope, str):
+            release_scope = ReleaseLevel(release_scope)
+
+        manifest = CapabilityManifest(
+            task_id="policy-active-system",
+            user_intent=user_intent or f"Authorized execution for {', '.join(allowed_actions)}",
+            allowed_actions=allowed_actions,
+            allowed_resources=allowed_resources,
+            allowed_destinations=allowed_destinations,
+            release_scope=release_scope,
+            purpose=purpose,
+            is_immutable=True,
+        )
+        cls._active_manifest = manifest
+        return manifest
+
+    @classmethod
+    def reset(cls) -> CapabilityManifest:
+        cls._active_manifest = cls.get_default_manifest()
+        return cls._active_manifest
+

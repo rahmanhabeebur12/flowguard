@@ -71,15 +71,41 @@ class IntentCompiler:
         else:
             purpose = "user_task_execution"
 
+        # Check active system policy baseline
+        from app.core.capability_manifest import ActivePolicyManager
+        active = ActivePolicyManager.get_active()
+
+        # If active policy has explicit constraints, enforce them as the authority ceiling
+        effective_destinations = destinations if destinations else active.allowed_destinations
+        if active and active.allowed_destinations:
+            # The active policy determines which destinations are authorized
+            effective_destinations = active.allowed_destinations
+
+        effective_actions = actions if actions else active.allowed_actions
+        if active and active.allowed_actions:
+            effective_actions = active.allowed_actions
+
+        effective_resources = resources if resources else active.allowed_resources
+        if active and active.allowed_resources:
+            effective_resources = active.allowed_resources
+
+        effective_release = release_scope
+        if active and active.release_scope:
+            effective_release = active.release_scope
+
+        effective_purpose = purpose
+        if active and active.purpose:
+            effective_purpose = active.purpose
+
         # Apply specific overrides if passed (useful for custom tests/scenarios)
         manifest_data = {
             "task_id": task_id,
             "user_intent": user_intent,
-            "allowed_actions": actions,
-            "allowed_resources": resources,
-            "allowed_destinations": destinations,
-            "release_scope": release_scope,
-            "purpose": purpose,
+            "allowed_actions": effective_actions,
+            "allowed_resources": effective_resources,
+            "allowed_destinations": effective_destinations,
+            "release_scope": effective_release,
+            "purpose": effective_purpose,
             "is_immutable": True,
         }
 
@@ -88,3 +114,4 @@ class IntentCompiler:
 
         manifest = CapabilityManifest(**manifest_data)
         return manifest
+

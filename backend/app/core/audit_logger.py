@@ -104,7 +104,13 @@ class AuditLogger:
         allowed = sum(1 for r in cls._records if r.decision == "ALLOW")
         approvals = sum(1 for r in cls._records if r.decision == "APPROVAL")
         executed = sum(1 for r in cls._records if r.execution_status == "EXECUTED")
-
+        high_risk = sum(1 for r in cls._records if r.risk_score >= 70)
+        tainted_flows = sum(
+            1 for r in cls._records 
+            if r.decision == "BLOCK" 
+            or any("UNTRUSTED" in str(c) for c in r.policy_checks) 
+            or any("taint" in str(inv).lower() for inv in r.invariants_violated)
+        )
         unique_tasks = len(set(r.task_id for r in cls._records))
 
         return {
@@ -113,10 +119,13 @@ class AuditLogger:
             "allowed_actions": allowed,
             "pending_approvals": approvals,
             "executed_tools": executed,
+            "high_risk_attempts": high_risk,
+            "active_tainted_flows": tainted_flows,
             "active_tasks": unique_tasks,
-            "attacks_detected": blocked, # Direct correlation to blocked malicious attacks
+            "attacks_detected": blocked,
         }
 
     @classmethod
     def clear(cls):
         cls._records.clear()
+

@@ -117,6 +117,45 @@ export const api = {
     return handleResponse(res);
   },
 
+  async getActivePolicy(): Promise<CapabilityManifest> {
+    const res = await fetch(`${API_BASE}/capabilities/active`);
+    return handleResponse(res);
+  },
+
+  async updateActivePolicy(policy: Partial<CapabilityManifest>): Promise<CapabilityManifest> {
+    const res = await fetch(`${API_BASE}/capabilities/active`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(policy),
+    });
+    return handleResponse(res);
+  },
+
+  async resetActivePolicy(): Promise<CapabilityManifest> {
+    const res = await fetch(`${API_BASE}/capabilities/active/reset`, {
+      method: 'POST',
+    });
+    return handleResponse(res);
+  },
+
+  async proposeToolAction(toolName: string, args: Record<string, any>, taskId?: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/tools/propose-action`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tool_name: toolName,
+        arguments: args,
+        task_id: taskId,
+      }),
+    });
+    return handleResponse(res);
+  },
+
+  async getTasks(): Promise<any[]> {
+    const res = await fetch(`${API_BASE}/tasks`);
+    return handleResponse(res);
+  },
+
   async runEvaluationTests(): Promise<any> {
     const res = await fetch(`${API_BASE}/evaluation/run-tests`, {
       method: 'POST',
@@ -131,3 +170,4 @@ export const api = {
     return handleResponse(res);
   },
 };
+

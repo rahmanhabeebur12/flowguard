@@ -3,15 +3,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardLayout } from './layouts/DashboardLayout';
 import { Dashboard } from './pages/Dashboard';
 import { LiveDemo } from './pages/LiveDemo';
-import { JudgeMode } from './pages/JudgeMode';
 import { AttackSimulator } from './pages/AttackSimulator';
 import { ProvenanceGraph } from './pages/ProvenanceGraph';
 import { CapabilityManifests } from './pages/CapabilityManifests';
 import { AuditLog } from './pages/AuditLog';
 import { ToolExecution } from './pages/ToolExecution';
-import { SecurityArchitecture } from './pages/SecurityArchitecture';
-import { WhyFlowGuard } from './pages/WhyFlowGuard';
-import { Evaluation } from './pages/Evaluation';
 import { Settings } from './pages/Settings';
 
 export const App: React.FC = () => {
@@ -22,15 +18,11 @@ export const App: React.FC = () => {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="demo" element={<LiveDemo />} />
-          <Route path="judge" element={<JudgeMode />} />
           <Route path="attacks" element={<AttackSimulator />} />
-          <Route path="provenance" element={<ProvenanceGraph />} />
           <Route path="capabilities" element={<CapabilityManifests />} />
+          <Route path="provenance" element={<ProvenanceGraph />} />
           <Route path="audit" element={<AuditLog />} />
           <Route path="tools" element={<ToolExecution />} />
-          <Route path="architecture" element={<SecurityArchitecture />} />
-          <Route path="comparison" element={<WhyFlowGuard />} />
-          <Route path="evaluation" element={<Evaluation />} />
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
