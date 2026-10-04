@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/.venv/
+.pytest_cache/
+flowguard.db
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm
+frontend/node_modules/
+frontend/dist/
+
+# OS
+.DS_Store
+*.swp
+*.swo
