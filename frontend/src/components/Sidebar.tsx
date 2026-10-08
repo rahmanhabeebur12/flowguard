@@ -12,6 +12,9 @@ import {
   Lock,
   X,
   Shield,
+  Layers,
+  Scale,
+  Activity,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -36,6 +39,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => 
         { to: '/provenance', label: 'Provenance', icon: GitFork },
         { to: '/audit', label: 'Audit Log', icon: ScrollText },
         { to: '/tools', label: 'Tool Sandbox', icon: Wrench },
+      ],
+    },
+    {
+      title: 'VERIFICATION',
+      items: [
+        { to: '/architecture', label: 'Architecture', icon: Layers },
+        { to: '/why-flowguard', label: 'Why FlowGuard', icon: Scale },
+        { to: '/evaluation', label: 'Evaluation Suite', icon: Activity },
       ],
     },
     {

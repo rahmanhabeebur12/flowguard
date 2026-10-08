@@ -6,12 +6,14 @@ interface HeaderProps {
   onReset?: () => void;
   isMobileMenuOpen?: boolean;
   onToggleMobileMenu?: () => void;
+  onOpenDemo?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   onReset,
   isMobileMenuOpen = false,
   onToggleMobileMenu,
+  onOpenDemo,
 }) => {
   const [isResetting, setIsResetting] = useState(false);
   const [tcbStatus, setTcbStatus] = useState<string>('ISOLATED');
@@ -80,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Right-side Status & Actions */}
-      <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
+      <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
         {/* Status indicator (Desktop only) */}
         <div className="hidden md:flex items-center space-x-3 bg-slate-900/80 border border-slate-800 rounded-lg px-3 py-1.5 font-mono text-xs">
           <div className="flex items-center space-x-2">
@@ -95,6 +97,18 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
+        {/* Global RUN DEMO button */}
+        {onOpenDemo && (
+          <button
+            onClick={onOpenDemo}
+            className="flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono text-xs font-bold shadow-glow-cyan transition-all shrink-0"
+            title="Launch Interactive Hackathon Security Demo"
+          >
+            <Shield className="w-3.5 h-3.5 fill-slate-950 shrink-0" />
+            <span className="text-[11px] sm:text-xs">RUN DEMO</span>
+          </button>
+        )}
+
         {/* Reset button */}
         <button
           onClick={handleReset}
@@ -103,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
           className="flex items-center space-x-1.5 px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-xs font-mono text-slate-300 transition-colors disabled:opacity-50 shrink-0"
         >
           <RefreshCw className={`w-3.5 h-3.5 text-slate-400 ${isResetting ? 'animate-spin' : ''}`} />
-          <span className="text-[11px] sm:text-xs">Reset Demo</span>
+          <span className="text-[11px] sm:text-xs hidden xs:inline">Reset</span>
         </button>
       </div>
     </header>

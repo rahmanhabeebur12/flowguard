@@ -9,6 +9,10 @@ import { CapabilityManifests } from './pages/CapabilityManifests';
 import { AuditLog } from './pages/AuditLog';
 import { ToolExecution } from './pages/ToolExecution';
 import { Settings } from './pages/Settings';
+import { SecurityArchitecture } from './pages/SecurityArchitecture';
+import { WhyFlowGuard } from './pages/WhyFlowGuard';
+import { Evaluation } from './pages/Evaluation';
+import { JudgeMode } from './pages/JudgeMode';
 
 export const App: React.FC = () => {
   return (
@@ -23,6 +27,10 @@ export const App: React.FC = () => {
           <Route path="provenance" element={<ProvenanceGraph />} />
           <Route path="audit" element={<AuditLog />} />
           <Route path="tools" element={<ToolExecution />} />
+          <Route path="architecture" element={<SecurityArchitecture />} />
+          <Route path="why-flowguard" element={<WhyFlowGuard />} />
+          <Route path="evaluation" element={<Evaluation />} />
+          <Route path="judge" element={<JudgeMode />} />
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Route>
